@@ -6,13 +6,7 @@ Visualization for Figure 2
 @author: tzcheng
 """
 import numpy as np
-import time
-import mne
-import scipy.stats as stats
-from scipy import stats,signal
-from mne import spatial_src_adjacency
-from mne.stats import spatio_temporal_cluster_1samp_test
-import sklearn 
+from scipy import signal
 import matplotlib.pyplot as plt 
 from scipy.io import wavfile
 
@@ -25,12 +19,12 @@ def plot_err(data,color,t):
     plt.plot(t,group_avg,color=color)
     plt.fill_between(t,up,lw,color=color,alpha=0.5)
 
-root_path='/media/tzcheng/storage/CBS/'
-
 #%%####################################### visualize MMR
-std = np.load(root_path + 'cbsA_meeg_analysis/EEG/' + 'group_std_eeg.npy')
-dev1 = np.load(root_path + 'cbsA_meeg_analysis/EEG/' + 'group_dev1_eeg.npy')
-dev2 = np.load(root_path + 'cbsA_meeg_analysis/EEG/' + 'group_dev2_eeg.npy')
+root_path='/home/tzcheng/Documents/GitHub/Paradigm/'
+
+std = np.load(root_path +  'group_std_eeg.npy')
+dev1 = np.load(root_path +  'group_dev1_eeg.npy')
+dev2 = np.load(root_path +  'group_dev2_eeg.npy')
 
 times = np.linspace(-0.1,0.6,3501)
 
@@ -43,20 +37,21 @@ plot_err(MMR2,'b',times)
 
 plt.title('MMRs')
 plt.legend(['Native MMR','','Nonative MMR',''])
-plt.xlabel('Time (ms)')
-plt.ylabel('Amplitude')
+plt.xlabel('Time (s)')
+plt.ylabel('Amplitude (V)')
 plt.xlim([-0.05,0.45])
 
 #%%####################################### visualize audio and cABR
-## cABR 
-std = np.load(root_path + 'cbsA_meeg_analysis/EEG/' + 'group_std_cabr_eeg_200.npy')
-dev1 = np.load(root_path + 'cbsA_meeg_analysis/EEG/' + 'group_dev1_cabr_eeg_200.npy')
-dev2 = np.load(root_path + 'cbsA_meeg_analysis/EEG/' + 'group_dev2_cabr_eeg_200.npy')
+root_path='/home/tzcheng/Documents/GitHub/Paradigm/'
+
+std = np.load(root_path + 'group_std_cabr_eeg_200.npy')
+dev1 = np.load(root_path + 'group_dev1_cabr_eeg_200.npy')
+dev2 = np.load(root_path + 'group_dev2_cabr_eeg_200.npy')
 
 ## Audio files
-fs, std_audio = wavfile.read('/media/tzcheng/storage/CBS/stimuli/+10.wav')
-fs, dev1_audio = wavfile.read('/media/tzcheng/storage/CBS/stimuli/-40.wav')
-fs, dev2_audio = wavfile.read('/media/tzcheng/storage/CBS/stimuli/+40.wav')
+fs, std_audio = wavfile.read(root_path + '+10.wav')
+fs, dev1_audio = wavfile.read(root_path + '-40.wav')
+fs, dev2_audio = wavfile.read(root_path + '+40.wav')
 # Downsample
 fs_new = 5000
 num_std = int((len(std_audio)*fs_new)/fs)
