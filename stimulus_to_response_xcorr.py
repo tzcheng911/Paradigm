@@ -2,15 +2,8 @@
 # -*- coding: utf-8 -*-
 """
 Created on Mon Sep 11 13:23:58 2023
-Visualize and calculate EEG & MEG correlation in adults for MMR and Standard.
-
-Correlation between EEG & MEG time series for...
-1. averaged across all subjects and all vertices
-2. averaged across all vertices for each subject (mean, max of window; point-by-point correlation)
-3. averaged for each ROI
-4. averaged for each vertice
-
-Correlation methods: pearson r, xcorr, cosine similarity
+Calculate EEG & audio correlation in adults for cABR.
+Correlation methods: xcorr
 
 @author: tzcheng
 """
@@ -30,12 +23,12 @@ import scipy.stats as stats
 from scipy.io import wavfile
 
 #%%######################################## xcorr between cABR and audio
-root_path='/media/tzcheng/storage/CBS/'
+root_path='/home/tzcheng/Documents/GitHub/Paradigm/'
 
 ## Load FFR from 0
-std = np.load(root_path + 'cbsA_meeg_analysis/EEG/' + 'group_std_cabr_eeg_200.npy')[:,100:]
-dev1 = np.load(root_path + 'cbsA_meeg_analysis/EEG/' + 'group_dev1_cabr_eeg_200.npy')[:,100:]
-dev2 = np.load(root_path + 'cbsA_meeg_analysis/EEG/' + 'group_dev2_cabr_eeg_200.npy')[:,100:]
+std = np.load(root_path + 'group_std_cabr_eeg_200.npy')[:,100:]
+dev1 = np.load(root_path + 'group_dev1_cabr_eeg_200.npy')[:,100:]
+dev2 = np.load(root_path + 'group_dev2_cabr_eeg_200.npy')[:,100:]
 
 # plt.figure()
 # plt.plot(np.linspace(0,0.13,650),dev2_audio_r)

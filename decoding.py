@@ -2,6 +2,13 @@
 # -*- coding: utf-8 -*-
 """
 Created on Thu Sep 21 12:31:26 2023
+
+Decoding for 
+1. Native vs. Nonnative MMR
+2. cABR to three speech sounds
+
+Permutation test for statistical significance.
+ 
 @author: tzcheng
 """ 
 import numpy as np
@@ -17,15 +24,15 @@ from mne.decoding import (
     get_coef,
 )
 #%%####################################### decoding for single channel EEG
-root_path='/media/tzcheng/storage/CBS/'
+root_path='/home/tzcheng/Documents/GitHub/Paradigm/'
 
 ## MMR
 ts = 500
 te = 1750
 
-std = np.load(root_path + 'cbsA_meeg_analysis/EEG/' + 'group_std_eeg.npy')
-dev1 = np.load(root_path + 'cbsA_meeg_analysis/EEG/' + 'group_dev1_eeg.npy')
-dev2 = np.load(root_path + 'cbsA_meeg_analysis/EEG/' + 'group_dev2_eeg.npy')
+std = np.load(root_path + 'group_std_eeg.npy')
+dev1 = np.load(root_path + 'group_dev1_eeg.npy')
+dev2 = np.load(root_path + 'group_dev2_eeg.npy')
 
 MMR1 = dev1 - std
 MMR2 = dev2 - std
@@ -43,9 +50,9 @@ score = np.mean(scores, axis=0)
 print("Accuracy: %0.1f%%" % (100 * score,))
 
 ## cABR 
-std = np.load(root_path + 'cbsA_meeg_analysis/EEG/' + 'group_std_cabr_eeg_200.npy')
-dev1 = np.load(root_path + 'cbsA_meeg_analysis/EEG/' + 'group_dev1_cabr_eeg_200.npy')
-dev2 = np.load(root_path + 'cbsA_meeg_analysis/EEG/' + 'group_dev2_cabr_eeg_200.npy')
+std = np.load(root_path + 'group_std_cabr_eeg_200.npy')
+dev1 = np.load(root_path + 'group_dev1_cabr_eeg_200.npy')
+dev2 = np.load(root_path + 'group_dev2_cabr_eeg_200.npy')
 
 X = np.concatenate((std,dev1,dev2),axis=0)
 y = np.concatenate((np.repeat(0,len(std)),np.repeat(1,len(dev1)),np.repeat(2,len(dev2))))

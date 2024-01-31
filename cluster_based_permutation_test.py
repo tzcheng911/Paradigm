@@ -13,13 +13,13 @@ import mne
 import scipy.stats as stats
 
 #%% non-paramatric permutation test on EEG
-root_path='/media/tzcheng/storage/CBS/'
+root_path='/home/tzcheng/Documents/GitHub/Paradigm/'
 
 ## MMR
 times = np.linspace(-0.1,0.6,3501)
-std = np.load(root_path + 'cbsA_meeg_analysis/EEG/' + 'group_std_eeg.npy')
-dev1 = np.load(root_path + 'cbsA_meeg_analysis/EEG/' + 'group_dev1_eeg.npy')
-dev2 = np.load(root_path + 'cbsA_meeg_analysis/EEG/' + 'group_dev2_eeg.npy')
+std = np.load(root_path + 'group_std_eeg.npy')
+dev1 = np.load(root_path + 'group_dev1_eeg.npy')
+dev2 = np.load(root_path + 'group_dev2_eeg.npy')
 
 ts = 500 # 0 s
 te = 1750 # 0.25 s
