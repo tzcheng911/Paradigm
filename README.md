@@ -13,7 +13,7 @@ EEG data are stored in .npy format, which can be loaded with NumPy package in Py
 
 The codes for data analyses and visualization are included. See below for the details.  
 
-The decoding analysis for both MMR and cABR can be found in decoding.py 
-The cluster-based permutation test for the MMR can be found in cluster_based_permutation_test.py 
-The cross-correlation analysis for cABR can be found in stimulus-to-response_xcorr.py 
-See vis.py for visualization of each subplot in Figure 2  
+1. The decoding analysis for both MMR and cABR can be found in decoding.py 
+2. The cluster-based permutation test for the MMR can be found in cluster_based_permutation_test.py 
+3. The cross-correlation analysis for cABR can be found in stimulus-to-response_xcorr.py 
+4. See vis.py for visualization of each subplot in Figure 2  
