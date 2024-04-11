@@ -66,7 +66,7 @@ score = np.mean(scores, axis=0)
 print("Accuracy: %0.1f%%" % (100 * score,))
 
 ## Run permutation on MMR or cABR
-n_perm=500
+n_perm=5000
 scores_perm=[]
 for i in range(n_perm):
     yp = copy.deepcopy(y)
@@ -83,7 +83,7 @@ scores_perm_array=np.asarray(scores_perm)
 
 plt.figure()
 plt.hist(scores_perm_array,bins=30,color='k')
-plt.vlines(score,ymin=0,ymax=12,color='r',linewidth=2)
-plt.vlines(np.percentile(scores_perm_array,97.5),ymin=0,ymax=12,color='grey',linewidth=2)
+plt.vlines(score,ymin=0,ymax=500,color='r',linewidth=2)
+plt.vlines(np.percentile(scores_perm_array,97.5),ymin=0,ymax=500,color='grey',linewidth=2)
 plt.ylabel('Count',fontsize=20)
 plt.xlabel('Accuracy',fontsize=20)
