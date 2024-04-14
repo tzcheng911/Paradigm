@@ -26,7 +26,7 @@ from mne.decoding import (
 #%%####################################### decoding for single channel EEG
 root_path='/home/tzcheng/Documents/GitHub/Paradigm/'
 
-## MMR
+#%% MMR
 ts = 500
 te = 1750
 
@@ -49,7 +49,7 @@ scores = cross_val_multiscore(clf, X, y, cv=5, n_jobs=None) # takes about 10 min
 score = np.mean(scores, axis=0)
 print("Accuracy: %0.1f%%" % (100 * score,))
 
-## cABR 
+#%% cABR 
 std = np.load(root_path + 'group_std_cabr_eeg_200.npy')
 dev1 = np.load(root_path + 'group_dev1_cabr_eeg_200.npy')
 dev2 = np.load(root_path + 'group_dev2_cabr_eeg_200.npy')
