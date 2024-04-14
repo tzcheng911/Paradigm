@@ -7,6 +7,7 @@ This repo includes the data and codes for the project titled "Validating a new p
 
 EEG data are stored in .npy format, which can be loaded with NumPy package in Python. There are six data files. Three of them (i.e. group_std_eeg.npy, group_dev1_eeg.npy and group_dev2_eeg.npy) are time series of MMR across all 18 subjects, and the other three are cABR data (i.e. group_std_cabr_eeg_200.npy, group_dev1_cabr_eeg_200.npy and group_dev2_cabr_eeg_200.npy).  
 
+Audio files are in .wav format, including three speech sounds /ba/ (+10.wav), /pa/ (+40.wav) and /mba/ (-40.wav).
   
 
 **Code** 
