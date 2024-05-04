@@ -17,15 +17,22 @@ root_path='/home/tzcheng/Documents/GitHub/Paradigm/'
 
 ## MMR
 times = np.linspace(-0.1,0.6,3501)
-std = np.load(root_path + 'group_std_eeg.npy')
-dev1 = np.load(root_path + 'group_dev1_eeg.npy')
-dev2 = np.load(root_path + 'group_dev2_eeg.npy')
+last_ba = np.load(root_path + 'group_std_eeg.npy')
+last_mba = np.load(root_path + 'group_std1_reverse_eeg.npy')
+last_pa = np.load(root_path + 'group_std2_reverse_eeg.npy')
+first_mba = np.load(root_path + 'group_dev1_eeg.npy')
+first_pa = np.load(root_path + 'group_dev2_eeg.npy')
 
-ts = 500 # 0 s
+## Conventional calculation
+MMR1 = first_mba - last_ba
+MMR2 = first_pa - last_ba
+
+## Controlled calculation
+MMR1 = first_mba - last_mba
+MMR2 = first_pa - last_pa
+
+ts = 1000 # 0 s
 te = 1750 # 0.25 s
-
-MMR1 = dev1 - std
-MMR2 = dev2 - std
 
 X = MMR1-MMR2
 X = X[:,ts:te]

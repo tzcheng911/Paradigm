@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Mon Sep 11 13:23:58 2023
-Calculate EEG & audio correlation in adults for cABR.
+Calculate EEG & audio correlation in adults for FFR.
 Correlation methods: xcorr
 
 @author: tzcheng
@@ -22,13 +22,13 @@ import pandas as pd
 import scipy.stats as stats
 from scipy.io import wavfile
 
-#%%######################################## xcorr between cABR and audio
+#%%######################################## xcorr between FFR and audio
 root_path='/home/tzcheng/Documents/GitHub/Paradigm/'
 
 ## Load FFR from 0
-std = np.load(root_path + 'group_std_cabr_eeg_200.npy')[:,100:]
-dev1 = np.load(root_path + 'group_dev1_cabr_eeg_200.npy')[:,100:]
-dev2 = np.load(root_path + 'group_dev2_cabr_eeg_200.npy')[:,100:]
+std = np.load(root_path + 'group_std_ffr_eeg_200.npy')[:,100:]
+dev1 = np.load(root_path + 'group_dev1_ffr_eeg_200.npy')[:,100:]
+dev2 = np.load(root_path + 'group_dev2_ffr_eeg_200.npy')[:,100:]
 
 # plt.figure()
 # plt.plot(np.linspace(0,0.13,650),dev2_audio_r)
