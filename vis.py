@@ -20,33 +20,63 @@ def plot_err(data,color,t):
     plt.fill_between(t,up,lw,color=color,alpha=0.5)
 
 #%%####################################### visualize MMR
-root_path='/home/tzcheng/Documents/GitHub/Paradigm/'
-
-std = np.load(root_path +  'group_std_eeg.npy')
-dev1 = np.load(root_path +  'group_dev1_eeg.npy')
-dev2 = np.load(root_path +  'group_dev2_eeg.npy')
-
+root_path='/home/tzcheng/Documents/GitHub/Paper0_Paradigm/'
 times = np.linspace(-0.1,0.6,3501)
 
-MMR1 = dev1 - std
-MMR2 = dev2 - std
+## first run
+last_ba = np.load(root_path + 'group_std_eeg.npy')
+last_mba = np.load(root_path + 'group_std1_reverse_eeg.npy')
+last_pa = np.load(root_path + 'group_std2_reverse_eeg.npy')
+first_mba = np.load(root_path + 'group_dev1_eeg.npy')
+first_pa = np.load(root_path + 'group_dev2_eeg.npy')
+
+## second run
+last_ba = np.load(root_path + 'group_02_std_eeg.npy')
+last_mba = np.load(root_path + 'group_02_std1_reverse_eeg.npy')
+last_pa = np.load(root_path + 'group_02_std2_reverse_eeg.npy')
+first_mba = np.load(root_path + 'group_02_dev1_eeg.npy')
+first_pa = np.load(root_path + 'group_02_dev2_eeg.npy')
+
+## Conventional calculation
+MMR1 = first_mba - last_ba
+MMR2 = first_pa - last_ba
+
+## Controlled calculation
+MMR1 = first_mba - last_mba
+MMR2 = first_pa - last_pa
 
 plt.figure()
-plot_err(MMR1,'r',times)
-plot_err(MMR2,'b',times)
+plot_err(MMR1*1e6,'r',times)
+plot_err(MMR2*1e6,'b',times)
 
 plt.title('MMRs')
-plt.legend(['Native MMR','','Nonative MMR',''])
+plt.legend(['Nonative MMR','','Native MMR',''])
 plt.xlabel('Time (s)')
-plt.ylabel('Amplitude (V)')
+plt.ylabel('Amplitude (uV)')
 plt.xlim([-0.05,0.45])
+plt.ylim([-5,4])
+
+## Individual subjects
+fig, axs = plt.subplots(18)
+fig.suptitle('MMR')
+for n in range(18):
+    axs[n].plot(times, MMR1[n,:]*1e6,'r')
+    axs[n].plot(times, MMR2[n,:]*1e6,'b')
+    axs[n].set_xlim([-0.05,0.45])
+    axs[n].set_ylim([-13, 13])
 
 #%%####################################### visualize audio and cABR
-root_path='/home/tzcheng/Documents/GitHub/Paradigm/'
+root_path='/home/tzcheng/Documents/GitHub/Paper0_Paradigm/'
+times = np.linspace(-0.02,0.2,1101)
 
-std = np.load(root_path + 'group_std_cabr_eeg_200.npy')
-dev1 = np.load(root_path + 'group_dev1_cabr_eeg_200.npy')
-dev2 = np.load(root_path + 'group_dev2_cabr_eeg_200.npy')
+std = np.load(root_path + 'group_std_ffr_eeg_200.npy')
+dev1 = np.load(root_path + 'group_dev1_ffr_eeg_200.npy')
+dev2 = np.load(root_path + 'group_dev2_ffr_eeg_200.npy')
+
+## second run
+std = np.load(root_path + 'group_02_std_ffr_eeg_150.npy')
+dev1 = np.load(root_path + 'group_02_dev1_ffr_eeg_150.npy')
+dev2 = np.load(root_path + 'group_02_dev2_ffr_eeg_150.npy')
 
 ## Audio files
 fs, std_audio = wavfile.read(root_path + '+10.wav')
@@ -62,22 +92,50 @@ dev2_audio = signal.resample(dev2_audio, num_dev, t=None, axis=0, window=None)
 
 ## plot std, dev1, dev2
 plt.figure()
-plot_err(std,'k',np.linspace(-0.02,0.2,1101))
-plt.xlim([0,0.2])
+plot_err(std*1e6,'k',times)
+plt.xlim([-0.02,0.2])
+plt.xlabel('Time (s)')
+plt.ylabel('Amplitude (uV)')
 plt.figure()
 plt.plot(np.linspace(0,0.1,500),std_audio)
 plt.xlim([0,0.1])
 
 plt.figure()
-plot_err(dev1,'k',np.linspace(-0.02,0.2,1101))
-plt.xlim([0,0.2])
+plot_err(dev1*1e6,'k',times)
+plt.xlim([-0.02,0.2])
+plt.xlabel('Time (s)')
+plt.ylabel('Amplitude (uV)')
 plt.figure()
 plt.plot(np.linspace(0,0.13,650),dev1_audio)
 plt.xlim([0,0.13])
 
 plt.figure()
-plot_err(dev2,'k',np.linspace(-0.02,0.2,1101))
-plt.xlim([0,0.2])
+plot_err(dev2*1e6,'k',times)
+plt.xlim([-0.02,0.2])
+plt.xlabel('Time (s)')
+plt.ylabel('Amplitude (uV)')
 plt.figure()
 plt.plot(np.linspace(0,0.13,650),dev2_audio)
 plt.xlim([0,0.13])
+
+## Individual subjects
+fig, axs = plt.subplots(18)
+fig.suptitle('FFR ba')
+for n in range(18):
+    axs[n].plot(times, std[n,:]*1e6,'k')
+    axs[n].set_xlim([-0.02,0.2])
+    axs[n].set_ylim([-1.2, 1.2])
+
+fig, axs = plt.subplots(18)
+fig.suptitle('FFR mba')
+for n in range(18):
+    axs[n].plot(times, dev1[n,:]*1e6,'k')
+    axs[n].set_xlim([-0.02,0.2])
+    axs[n].set_ylim([-1.2, 1.2])
+    
+fig, axs = plt.subplots(18)
+fig.suptitle('FFR pa')
+for n in range(18):
+    axs[n].plot(times, dev2[n,:]*1e6,'k')
+    axs[n].set_xlim([-0.02,0.2])
+    axs[n].set_ylim([-1.2, 1.2])
